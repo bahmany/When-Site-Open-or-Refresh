@@ -1,0 +1,36 @@
+@startuml
+
+title  When Site Open or Refresh
+
+start
+:site request;
+:get csrf token for all requests;
+  if (check auth cookies) then (not found)
+    :mark as anonymous;
+    end
+   else (found)
+    if (token available) then (yes)
+    :mark as auth ;
+    end
+    else (no)
+    if (refresh token ?) then (yes)
+
+        if (refresh token is valid) then (yes)
+            :mark as auth;
+            end
+        else (no)
+        :mark as anonymous;
+        endif
+
+    :gettting main token;
+    else (no)
+    :mark as anonymous;
+    end
+   endif
+endif
+end
+
+
+
+
+@enduml
